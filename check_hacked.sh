@@ -1,4 +1,3 @@
-
 ## CONSTANTS ########################
 DRUPALROOT="../www";
 GIT_TEMP_BASE_DIRECTORY="/tmp/hacked"
