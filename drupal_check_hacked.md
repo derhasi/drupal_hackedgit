@@ -9,5 +9,5 @@ This small script provides some code to check a project of your installation (lo
 Check status of views module.
 
 ```
-bash check_hacked.sh views
+bash drupal_check_hacked.sh views
 ```
