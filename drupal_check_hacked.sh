@@ -1,3 +1,4 @@
+
 ## CONSTANTS ########################
 DRUPALROOT="../www";
 GIT_TEMP_BASE_DIRECTORY="/tmp/hacked"
@@ -74,12 +75,15 @@ echo "LAST HASH: $LASTHASH";
 echo "Checking out $LASTHASH";
 git checkout --detach "$LASTHASH" --quiet
 
-# Perform diff.
-DIFFPATH="$PROJECTPATH/hacked-$PROJECTTEMP.diff";
+# Perform diff to file marked with hash value of the remote commit.
+DIFFPATH="$PROJECTPATH/hacked-$LASTHASH.diff";
 
 # Diff exits the whole script for some unknown reason, so we have to switch off
 # stopping on error.
 set +e;
+# Remove possibly former created file.
+rm $DIFFPATH;
+# Write the output of the diff to the specific file.
 diff -r --exclude=".git" "$GIT_PROJECT_DIR" "$PROJECTPATH" -u > $DIFFPATH;
 set -e;
 
