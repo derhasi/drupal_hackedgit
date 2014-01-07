@@ -41,12 +41,12 @@ function hackedgitWrapper () {
   echo "Project: $PROJECT";
 
   # Get the path for the project to compare.
-  PROJECTPATH="$DRUPALROOT/"$(drush --root=$DRUPALROOT pm-info "$PROJECT" --fields=path --format=list)
+  PROJECTPATH="$DRUPALROOT/"$(drush --root="$DRUPALROOT" pm-info "$PROJECT" --fields=path --format=list)
   PROJECTPATH=$(dhAbsolutePath $PROJECTPATH);
   echo "Path: $PROJECTPATH";
 
   # We build the branch from the version info.
-  VERSION=$(drush --root=../www pm-info "$PROJECT" --fields=version --format=list)
+  VERSION=$(drush --root="$DRUPALROOT" pm-info "$PROJECT" --fields=version --format=list)
   # We suppose versions do not get bigger than "9" for the moment, so we simply
   # can take the first 5 characters for the branch name (plus ".x").
   BRANCH=${VERSION:0:5}".x"
@@ -54,7 +54,7 @@ function hackedgitWrapper () {
 
   # Get the project time via php, as long as pm-info does not support datestamp.
   # PROJECTTIME=1324599481
-  PROJECTTIME=$(drush --root="../www" php-eval "print system_rebuild_module_data()['$PROJECT']->info['datestamp'];");
+  PROJECTTIME=$(drush --root="$DRUPALROOT" php-eval "print system_rebuild_module_data()['$PROJECT']->info['datestamp'];");
   echo "Project time: $PROJECTTIME";
 
   # Build and create the path to clone to.
