@@ -86,7 +86,10 @@ function hackedgitWrapper () {
   # Remove possibly former created file.
   rm $DIFFPATH;
   # Write the output of the diff to the specific file.
-  diff -r --exclude=".git" "$GIT_PROJECT_DIR" "$PROJECTPATH" -u > $DIFFPATH;
+  # We ignore .git and the LICENSE.txt, as this is only a difference due to the
+  # packaging.
+  # @todo: ignore info part provided by packaging system
+  diff -r --exclude=".git" --exclude="LICENSE.TXT" "$GIT_PROJECT_DIR" "$PROJECTPATH" -u > $DIFFPATH;
   set -e;
 
   echo "Created diff at '$DIFFPATH':";
