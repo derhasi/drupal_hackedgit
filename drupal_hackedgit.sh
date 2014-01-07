@@ -86,10 +86,13 @@ function hackedgitWrapper () {
   # Remove possibly former created file.
   rm $DIFFPATH;
   # Write the output of the diff to the specific file.
-  # We ignore .git and the LICENSE.txt, as this is only a difference due to the
+  # We ignore .git and the LICENSE.txt/LICENSE.TXT, as this is only a difference due to the
   # packaging.
+  # We also ignore whitespace changes, so we do not clutter up the diff with
+  # irrelevant changes.
+  # @todo: add option to not ignore whitespace changes.
   # @todo: ignore info part provided by packaging system
-  diff -r --exclude=".git" --exclude="LICENSE.TXT" "$GIT_PROJECT_DIR" "$PROJECTPATH" -u > $DIFFPATH;
+  diff -r -w --exclude=".git" --exclude="LICENSE.txt" --exclude="LICENSE.TXT" "$GIT_PROJECT_DIR" "$PROJECTPATH" -u > $DIFFPATH;
   set -e;
 
   echo "Created diff at '$DIFFPATH':";
